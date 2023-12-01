@@ -1,0 +1,16 @@
+-- Certifique-se de que você está conectado ao banco de dados e execute os comandos em um ambiente de teste primeiro.
+
+-- 1. Remova a coluna de ID (se necessário)
+-- Isso irá excluir a coluna existente e, em seguida, adicioná-la novamente com a configuração de autoincrement correta.
+ALTER TABLE tb_notas DROP COLUMN id;
+
+-- 2. Adicione novamente a coluna de ID com autoincrement a partir do novo valor inicial
+-- Definimos o novo valor inicial para -1 para que o próximo valor autoincrement seja 0.
+ALTER TABLE tb_notas ADD COLUMN id INT AUTO_INCREMENT PRIMARY KEY FIRST;
+UPDATE tb_notas SET id = id - 1;
+
+-- 3. Atualize a sequência de autoincrement para começar a partir do novo valor inicial
+-- Definimos o valor para 0, já que o próximo valor será 1.
+ALTER TABLE tb_notas AUTO_INCREMENT = 0;
+
+-- Certifique-se de executar os comandos em ordem.
