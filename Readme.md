@@ -1,7 +1,7 @@
-#VOU FALAR UM POUCO SOBRE UM PROJETO QUE EU FIZ
+# Vou falar um pouco sobre um projeto que eu fiz
 
-##NO SEGUNDO ANO DO TECNICO EM INFORMATICA FOI PEDIDO UM TRABALHO ONDE AJUDASSE UMA PESSOA E A PESSOA ESCOLHIDA FOI UMA AMIGA QUE TEM UM STUDIO DE FOTOGRAFIA NA MINHA CIDADE,ENTÃO JA NO SEGUNDO ANO FIZ UM PROJETO A PASTA **STUDIO** ONDE SO SABIA O BASICO DE PHP E BANCO DE DADOS.
-##COM O TEMPO FUI ME APRIMORANDO EM PHP E COM ISSO COM O AUXILIO DE UM PROFESSOR E O MESTRE **GUSTAVO GUANABARA DO CURSO EM VIDEO** COMEÇEI A APREENDER POO EM PHP ASSIM CRIEI MEU PRIMEIRO PROJETO COM UM PROJETO JA PRONTO DO MEU PROFESSOR USEI ELE DE BASE E CRIEI ESTE CHAMADO DE **BANCO_POO**
-##AGORA DE FERIAS RESOLVI PEGAR AQUELE MEU ANTIGO CODIGO DO STUDIO FAZER ELE TOTALMENTE EM PHP E ORIENTADO A OBJETO **STUDIO_POO** SIGO PROGRAMANDO AOS TRANCOS E BARRANCOS E SEMPRE TENTANDO APREENDER MAIS
+## No segundo ano do tecnico em informatica foi pedido um trabalho onde ajudasse uma pessoa e a pessoa escolhida foi uma amiga que tem um studio de fotografia na minha cidade,então ja no segundo ano fiz um projeto a pasta **_Studio_** onde so sabia o basico de php e banco de dados.
+## Com o tempo fui me aprimorando em php e com isso com o auxilio de um professor e o mestre **_Gustavo Guanabara do Curso em Video_** começei a apreender poo em php assim criei meu primeiro projeto com um projeto ja pronto do meu professor usei ele de base e criei este chamado de **_Banco poo_**
+## Agora de ferias resolvi pegar aquele meu antigo codigo do studio fazer ele totalmente em php e orientado a objeto, o **_Studio poo_** sigo programando aos trancos e barrancos e sempre tentando apreender mais
 
-#OBRIGADO JOÃO MARCOS OU **_LINGUINHA_**
+# Obrigado João Marcos ou **_linguinha_**
