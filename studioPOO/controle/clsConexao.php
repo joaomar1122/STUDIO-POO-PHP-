@@ -54,23 +54,19 @@ class clsConexao
 		return $this->dbname;
 	}
 
-	# MÉTODOS
+	# M
 
-	# construtor
 	public function __construct()
 	{
-		$this->servername = 'localhost';
-		$this->username = 'root';
-		$this->password = '';
-		$this->dbname = 'bd_notas';
-		$this->conecta();
+		$this->conexao = new mysqli('localhost', 'root', '', 'bd_notas');
+		if ($this->conexao->connect_error) {
+			die('Erro na conexão: ' . $this->conexao->connect_error);
+		}
 	}
 
-	/* Método que usa as informações para criar um
-    objeto de conexão ao banco */
-	public function conecta()
+	public function getConexao()
 	{
-		$this->conexao = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname);
+		return $this->conexao;
 	}
 
 	/* Método que executa uma string SQL no banco de dados */

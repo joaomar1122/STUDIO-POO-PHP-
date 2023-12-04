@@ -19,20 +19,17 @@ if (isset($_POST['btnExcluir'])) {
 
 
 
-		$conexao = new mysqli('localhost', 'root', '', 'bd_notas');
-
-		if ($conexao->connect_error) {
-			die('Erro na conexão: ' . $conexao->connect_error);
-		}
+		$conexao = new clsConexao();
+		$mysqli = $conexao->getConexao();
 
 
 		$sql = "UPDATE tb_notas SET id_status = 1 WHERE id_notas = ?";
-		$stmt = $conexao->prepare($sql);
+		$stmt = $mysqli->prepare($sql);
 		$stmt->bind_param("i", $id); // 'i' indica um valor inteiro
 		if ($stmt->execute()) {
 			exit;
 		} else {
-			echo "Erro ao atualizar o status de pagamento: " . $conexao->error;
+			echo "Erro ao atualizar o status de pagamento: " . $mysqli->error;
 		}
 
 		$stmt->close();

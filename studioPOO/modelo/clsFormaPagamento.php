@@ -10,17 +10,19 @@ class clsFormaPagamento extends clsComum
 
 	public function pegaFormaPagamento()
 	{
-		$conexao = new mysqli('localhost', 'root', '', 'bd_notas');
-		$forma_pagamento = $conexao->query('SELECT * from tb_pagamento;');
+		$conexao = new clsConexao();
+		$mysqli = $conexao->getConexao();
+		$forma_pagamento = $mysqli->query('SELECT * from tb_pagamento;');
 		return $forma_pagamento;
 	}
 
 	public function pegaFormaPagamentoPorId($id)
 	{
-		$conexao = new mysqli('localhost', 'root', '', 'bd_notas');
+		$conexao = new clsConexao();
+		$mysqli = $conexao->getConexao();
 		$sql = "SELECT forma_pagamento FROM tb_pagamento WHERE id_pagamento=" . $id . ";";
 
-		$tabela = $conexao->query($sql);
+		$tabela = $mysqli->query($sql);
 		$forma_pagamento = '';
 
 		while ($linha = mysqli_fetch_row($tabela)) {

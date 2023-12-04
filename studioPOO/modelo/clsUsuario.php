@@ -1,4 +1,3 @@
-clsUsuario:
 <?php
 require_once('../controle/clsConexao.php');
 
@@ -74,7 +73,8 @@ class clsUsuario
 
 	public function setForma_pagamento($id_pagamento)
 	{
-		$conexao = new mysqli('localhost', 'root', '', 'bd_notas');
+		$conexao = new clsConexao();
+		$mysqli = $conexao->getConexao();
 		if (isset($_POST['slcFormaPagamento'])) {
 			$forma_pagamento = $_POST['slcFormaPagamento'];
 			$id_pagamento = $forma_pagamento;
@@ -91,7 +91,8 @@ class clsUsuario
 
 	public function setStatus_pagamento($id_status)
 	{
-		$conexao = new mysqli('localhost', 'root', '', 'bd_notas');
+		$conexao = new clsConexao();
+		$mysqli = $conexao->getConexao();
 		if (isset($_POST['slcStatus'])) {
 			$status = $_POST['slcStatus'];
 			$id_status = $status;
@@ -105,74 +106,50 @@ class clsUsuario
 
 
 
+
 	public function salvar()
 	{
-		$conexao = new mysqli('localhost', 'root', '', 'bd_notas');
+		$conexao = new clsConexao();
+		$mysqli = $conexao->getConexao();
 
-		if ($conexao->connect_error) {
-			die('Erro na conexão: ' . $conexao->connect_error);
-		}
+		$stmt = $mysqli->prepare("INSERT INTO tb_cliente (nome_cliente) VALUES (?)");
+		$stmt->bind_param("s", $this->nome);
+		$stmt->execute();
+		$id_cliente = $mysqli->insert_id;
 
-		$sql = "INSERT INTO tb_cliente (nome_cliente) VALUES ('$this->nome')";
-		$conexao->query($sql);
+		$stmt = $mysqli->prepare("INSERT INTO tb_servico (tipo_servico) VALUES (?)");
+		$stmt->bind_param("s", $this->servico);
+		$stmt->execute();
+		$id_servico = $mysqli->insert_id;
 
-
-		$id_cliente = $conexao->insert_id;
-
-
-		$sql = "INSERT INTO tb_servico (tipo_servico) VALUES ('$this->servico')";
-		$conexao->query($sql);
-
-
-		$id_servico = $conexao->insert_id;
-
-		// if (isset($_POST['slcFormaPagamento'])) {
-		// 	$forma_pagamento = $_POST['slcFormaPagamento'];
-		// 	$id_pagamento = $forma_pagamento;
-		// } else {
-		// 	die("Erro: Forma de pagamento inválida.");
-		// }
-		// if (isset($_POST['slcStatus'])) {
-		// 	$status = $_POST['slcStatus'];
-		// 	$id_status = $status;
-		// } else {
-		// 	die("Erro: Status de Pagamento Invalido.");
-		// }
-
-		$stmt = $conexao->prepare("INSERT INTO tb_notas (data_nota, preco_nota, id_pagamento, id_cliente, id_servico, id_status) VALUES ('$this->data', '$this->preco', '$this->forma_pagamento', '$id_cliente', '$id_servico',$this->status_pagamento)");
-		if (!$stmt) {
-			die("Erro na preparação da consulta final: " . $conexao->error);
-		}
-
-		if (!$stmt->execute()) {
-			die("Erro ao executar a consulta final: " . $stmt->error);
-		}
+		$stmt = $mysqli->prepare("INSERT INTO tb_notas (data_nota, preco_nota, id_pagamento, id_cliente, id_servico, id_status) VALUES (?, ?, ?, ?, ?, ?)");
+		$stmt->bind_param("sdiidi", $this->data, $this->preco, $this->forma_pagamento, $id_cliente, $id_servico, $this->status_pagamento);
+		$stmt->execute();
 	}
+
 
 
 	public function exclui()
 	{
-		$conexao = new mysqli('localhost', 'root', '', 'bd_notas');
-		if ($conexao->connect_error) {
-			die("Falha na conexão com o banco de dados: " . $conexao->connect_error);
-		}
+		$conexao = new clsConexao();
+		$mysqli = $conexao->getConexao();
 
 		if (isset($_GET['id'])) {
 			$id_notas = $_GET['id'];
 
 			$sql = "DELETE FROM tb_notas WHERE id_notas = ?";
-			$stmt = $conexao->prepare($sql);
+			$stmt = $mysqli->prepare($sql);
 			$stmt->bind_param("i", $id_notas);
 			if ($stmt->execute()) {
 				header('Location: tabela.php');
 				exit;
 			} else {
-				echo "Erro ao excluir o registro: " . $conexao->error;
+				echo "Erro ao excluir o registro: " . $mysqli->error;
 			}
 
 			$stmt->close();
 		}
 
-		$conexao->close();
+		$mysqli->close();
 	}
 }

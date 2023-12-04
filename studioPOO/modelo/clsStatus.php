@@ -10,17 +10,19 @@ class clsStatus extends clsComum
 
 	public function pegaStatus()
 	{
-		$conexao = new mysqli('localhost', 'root', '', 'bd_notas');
-		$status = $conexao->query('SELECT * from tb_status_nota;');
+		$conexao = new clsConexao();
+		$mysqli = $conexao->getConexao();
+		$status = $mysqli->query('SELECT * from tb_status_nota;');
 		return $status;
 	}
 
 	public function pegaStatusPorId($id)
 	{
-		$conexao = new mysqli('localhost', 'root', '', 'bd_notas');
+		$conexao = new clsConexao();
+		$mysqli = $conexao->getConexao();
 		$sql = "SELECT status_pagamento FROM tb_status_nota WHERE id_status=" . $id . ";";
 
-		$tabela = $conexao->query($sql);
+		$tabela = $mysqli->query($sql);
 		$status = '';
 
 		while ($linha = mysqli_fetch_row($tabela)) {

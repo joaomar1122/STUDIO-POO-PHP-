@@ -25,7 +25,8 @@ class clsControlesHTML
 
 	public function pegaUsuarios()
 	{
-		$conexao = new mysqli('localhost', 'root', '', 'bd_notas');
+		$conexao = new clsConexao();
+		$mysqli = $conexao->getConexao();
 		$sql = "SELECT n.id_notas, c.nome_cliente, n.data_nota, n.preco_nota, ss.status_pagamento, p.forma_pagamento, s.tipo_servico
 				FROM tb_cliente as c, tb_notas as n, tb_pagamento as p, tb_servico as s,tb_status_nota as ss
 				WHERE (c.id_cliente = n.id_cliente)
@@ -33,7 +34,7 @@ class clsControlesHTML
 				AND (s.id_servico = n.id_servico)
 				AND (ss.id_status = n.id_status)
 				ORDER BY n.id_notas;";
-		return $conexao->query($sql);
+		return $mysqli->query($sql);
 	}
 
 	public function geraGrid($tabela)
