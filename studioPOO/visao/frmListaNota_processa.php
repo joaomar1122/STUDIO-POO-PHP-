@@ -1,10 +1,11 @@
 <?php
 require_once('../modelo/clsUsuario.php');
+require_once('../controle/clsConexao.php');
 
 $usuario = new clsUsuario();
 
+
 if (isset($_POST['btnExcluir'])) {
-	$usuario->setNome($_POST['nome_cliente'] . $_POST['btnExcluir']);
 	if ($usuario->exclui() == true)
 		header('location:frmListaNota.php');
 	else {
