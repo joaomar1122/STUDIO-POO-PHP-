@@ -6,7 +6,7 @@ require_once('../controle/clsControlesHTML.php');
 <html>
 
 <head>
-	<title>Menu do Sistema</title>
+	<title>Tabela de Notas Fiscais</title>
 	<style>
 		table {
 			width: 100%;
@@ -50,7 +50,7 @@ require_once('../controle/clsControlesHTML.php');
 	<table>
 		<tr style="height:50px">
 			<td colspan="2">
-				<h1>SISTEMA POO</h1>
+				<h1>SISTEMA POO NOTAS FISCAIS</h1>
 			</td>
 		</tr>
 		<tr style="height:50px">
@@ -66,19 +66,21 @@ require_once('../controle/clsControlesHTML.php');
 						<td style="width:150px; vertical-align:top;">
 							<b>>> Notas</b></br>
 							<a href="frmNovaNota.php">Novo Notas</a><br>
-							<a href="frmListaUsuario.php">Gerenciar Notas </a><br>
+							<a href="frmListaNota.php">Gerenciar Notas </a><br>
 						</td>
 						<td style="vertical-align:top; text-align:left;">
 							<!-- TABELA QUE LISTA OS USUARIOS CADASTRADOS NO BANCO DE DADOS -->
 							<div class="w3-container">
-								<h2>LISTA DE Notas</h2>
-								<form method="post" action="frmListaUsuario_processa.php" enctype="multipart/form-data">
+								<h2>Lista De Notas</h2>
+								<form method="post" action="frmListaNota_processa.php" enctype="multipart/form-data">
 									<?php
-									$usuario = new clsUsuario();
+
+									$usuario = new clsControlesHTML();
 									$tabela = $usuario->pegaUsuarios();
 
 									$controles = new clsControlesHTML();
 									echo $controles->geraGrid($tabela);
+
 									?>
 								</form>
 							</div>

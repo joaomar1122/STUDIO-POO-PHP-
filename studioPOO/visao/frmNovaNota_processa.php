@@ -12,10 +12,7 @@ $usuario->setStatus_pagamento($_POST['slcStatus']);
 
 
 if ($usuario->salvar() == true) {
-	#header('location:lista_usuario.php');
-	echo 'Salvo!';
+	header('location:frmListaNota.php');
 } else {
-	echo 'Salvo!!';
+	echo "Erro";
 }
-
-echo '<a href="frmNovaNota.php"> VOLTAR </a>';

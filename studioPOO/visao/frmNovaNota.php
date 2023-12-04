@@ -61,7 +61,7 @@
 							<td style="width:150px; vertical-align:top;">
 								<b>>> USU&Aacute;RIO</b></br>
 								<a href="frmNovoUsuario.php">Novo usu&aacute;rio</a><br>
-								<a href="frmListaUsuario.php">Gerenciar Usu&aacute;rios</a><br>
+								<a href="frmListaNota.php">Gerenciar Usu&aacute;rios</a><br>
 							</td>
 							<td style="vertical-align:top; text-align:left;">
 								<form method="post" action="frmNovaNota_processa.php" enctype="multipart/form-data">

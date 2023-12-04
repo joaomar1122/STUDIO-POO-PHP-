@@ -71,9 +71,6 @@ class clsConexao
 	public function conecta()
 	{
 		$this->conexao = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname);
-		if (!$this->conexao) {
-			die('Erro na conexão: ' . mysqli_connect_error());
-		}
 	}
 
 	/* Método que executa uma string SQL no banco de dados */

@@ -2,7 +2,6 @@
 require('../modelo/clsUsuario.php');
 
 $usuario = new clsUsuario();
-echo $_POST['slcPerfil'];
 $usuario->setNome($_POST['txtNome']);
 $usuario->setLogin($_POST['txtLogin']);
 $usuario->setSenha($_POST['txtSenha']);
