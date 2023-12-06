@@ -159,12 +159,12 @@ if (!isset($_SESSION['usuario'])) {
                 $filter .= " AND pago_nota = $filtro_status_pagamento";
             }
 
-            $sql = "SELECT n.id_notas, c.nome_cliente, n.data_nota, n.preco_nota, n.pago_nota, p.forma_pagamento, s.tipo_servico 
-            FROM tb_cliente as c, tb_notas as n, tb_pagamento as p, tb_servico as s
-            WHERE (c.id_cliente = n.id_cliente)
-            AND (p.id_pagamento = n.id_pagamento)
-            AND (s.id_servico = n.id_servico) $filter
-            ORDER BY n.id_notas";
+            $sql = "SELECT n.id_notas, n.nome_cliente, n.data_nota, n.preco_nota, ss.status_pagamento, p.forma_pagamento, n.tipo_servico
+				FROM  tb_notas as n, tb_pagamento as p,tb_status_nota as ss
+				WHERE
+				(p.id_pagamento = n.id_pagamento)
+				AND (ss.id_status = n.id_status)
+				ORDER BY n.id_notas;";
 
             $result = $conn->query($sql);
 
@@ -174,7 +174,7 @@ if (!isset($_SESSION['usuario'])) {
 
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    if ($row["pago_nota"]) {
+                    if ($row["status_pagamento"]) {
                         echo "<tr>";
                         echo "<td>" . $row["nome_cliente"] . "</td>";
                         echo "<td>" . $row["tipo_servico"] . "</td>";
@@ -184,7 +184,7 @@ if (!isset($_SESSION['usuario'])) {
                         echo "<td>Pago</td>";
                         echo '<td><a href="excluir.php?id=' . $row['id_notas'] . '" class="botao-excluir">Excluir</a></td>';
                         echo '<td>';
-                        if (!$row['pago_nota']) {
+                        if (!$row['id_status'] == 1) {
                             echo '<a href="editar.php?id=' . $row['id_notas'] . '" class="botao-editar">Pago</a>';
                         }
                         echo '</td>';
@@ -201,7 +201,7 @@ if (!isset($_SESSION['usuario'])) {
                         echo "<td>Não Pago</td>";
                         echo '<td><a href="excluir.php?id=' . $row['id_notas'] . '" class="botao-excluir">Excluir</a></td>';
                         echo '<td>';
-                        if (!$row['pago_nota']) {
+                        if (!$row['status_pagamento']) {
                             echo '<a href="editar.php?id=' . $row['id_notas'] . '" class="botao-editar">Pago</a>';
                         }
                         echo '</td>';

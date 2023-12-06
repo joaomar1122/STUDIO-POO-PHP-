@@ -9,10 +9,11 @@ class clsControlesHTML
 	{
 	}
 
-	public function geraSelect($nome, $tabela, $codigoSelecionado = '')
+	public function geraSelect($nome, $dadosSelecionados, $codigoSelecionado = '')
 	{
 		$options = '<select name="' . $nome . '">';
-		while ($linha = mysqli_fetch_row($tabela)) {
+
+		foreach ($dadosSelecionados as $linha) {
 			if ($codigoSelecionado == $linha[0]) {
 				$options .= '<option value="' . $linha[0] . '" selected="selected">' . $linha[1] . '</option>';
 			} else {
@@ -23,15 +24,16 @@ class clsControlesHTML
 		return $options . '</select>';
 	}
 
+
+
 	public function pegaUsuarios()
 	{
 		$conexao = new clsConexao();
 		$mysqli = $conexao->getConexao();
-		$sql = "SELECT n.id_notas, c.nome_cliente, n.data_nota, n.preco_nota, ss.status_pagamento, p.forma_pagamento, s.tipo_servico
-				FROM tb_cliente as c, tb_notas as n, tb_pagamento as p, tb_servico as s,tb_status_nota as ss
-				WHERE (c.id_cliente = n.id_cliente)
-				AND (p.id_pagamento = n.id_pagamento)
-				AND (s.id_servico = n.id_servico)
+		$sql = "SELECT n.id_notas, n.nome_cliente, n.data_nota, n.preco_nota, ss.status_pagamento, p.forma_pagamento, n.tipo_servico
+				FROM  tb_notas as n, tb_pagamento as p,tb_status_nota as ss
+				WHERE
+				(p.id_pagamento = n.id_pagamento)
 				AND (ss.id_status = n.id_status)
 				ORDER BY n.id_notas;";
 		return $mysqli->query($sql);
@@ -55,17 +57,24 @@ class clsControlesHTML
 
 		$usuarios = $this->pegaUsuarios();
 
-		while ($linha = $usuarios->fetch_assoc()) {
+		while ($linha = $usuarios->fetch(PDO::FETCH_ASSOC)) {
 			$htmlTabela .= '<tr>
-                            <td>' . $linha['nome_cliente'] . '</td>
-                            <td>' . $linha['tipo_servico'] . '</td>
-                            <td>R$' . $linha['preco_nota'] . '</td>
-                            <td>' . $linha['data_nota'] . '</td>
-                            <td>' . $linha['forma_pagamento'] . '</td>
-                            <td>'  . $linha['status_pagamento'] . '</td>
-				<td><center><button type="submit" name="btnAlterar" value="' . $linha['id_notas'] . '">Alterar</button>
-				<td><center><button type="submit" name="btnExcluir" value="' . $linha['id_notas'] . '">Excluir</button>
-                     </tr>';
+				<td>' . $linha['nome_cliente'] . '</td>
+				<td>' . $linha['tipo_servico'] . '</td>
+				<td>R$' . $linha['preco_nota'] . '</td>
+				<td>' . $linha['data_nota'] . '</td>
+				<td>' . $linha['forma_pagamento'] . '</td>
+				<td>'  . $linha['status_pagamento'] . '</td>';
+
+			if ($linha['status_pagamento'] == "N&atilde;o Pago") {
+				$htmlTabela .= '<td><center><a href="frmListaNota_processa.php?id=' . $linha['id_notas'] . '&action=alterar">Alterar</a></td>';
+			} else {
+				$htmlTabela .= '<td></td>';
+			}
+
+			$htmlTabela .= '<td><center><a href="frmListaNota_processa.php?id=' . $linha['id_notas'] . '&action=excluir">Excluir</a></td>
+
+       	</tr>';
 		}
 
 		$htmlTabela .= '</tbody></table>';

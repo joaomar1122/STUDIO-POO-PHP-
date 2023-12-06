@@ -20,14 +20,16 @@ class clsStatus extends clsComum
 	{
 		$conexao = new clsConexao();
 		$mysqli = $conexao->getConexao();
-		$sql = "SELECT status_pagamento FROM tb_status_nota WHERE id_status=" . $id . ";";
+		$sql = "SELECT status_pagamento FROM tb_status_nota WHERE id_status = :id";
+		$stmt = $mysqli->prepare($sql);
+		$stmt->bindParam(':id', $id, PDO::PARAM_INT);
+		$stmt->execute();
 
-		$tabela = $mysqli->query($sql);
 		$status = '';
-
-		while ($linha = mysqli_fetch_row($tabela)) {
-			$status = $linha[0];
+		while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+			$status = $row['status_pagamento'];
 		}
+		$mysqli = null;
 
 		return $status;
 	}

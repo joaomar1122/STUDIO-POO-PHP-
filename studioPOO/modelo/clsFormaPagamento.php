@@ -21,13 +21,15 @@ class clsFormaPagamento extends clsComum
 		$conexao = new clsConexao();
 		$mysqli = $conexao->getConexao();
 		$sql = "SELECT forma_pagamento FROM tb_pagamento WHERE id_pagamento=" . $id . ";";
+		$stmt = $mysqli->prepare($sql);
+		$stmt->bindParam(':id', $id, PDO::PARAM_INT);
+		$stmt->execute();
 
-		$tabela = $mysqli->query($sql);
 		$forma_pagamento = '';
-
-		while ($linha = mysqli_fetch_row($tabela)) {
-			$forma_pagamento = $linha[0];
+		while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+			$forma_pagamento = $row['forma_pagamento'];
 		}
+		$mysqli = null;
 
 		return $forma_pagamento;
 	}

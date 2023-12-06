@@ -58,10 +58,15 @@ class clsConexao
 
 	public function __construct()
 	{
-		$this->conexao = new mysqli('localhost', 'root', '', 'bd_notas');
-		if ($this->conexao->connect_error) {
-			die('Erro na conexão: ' . $this->conexao->connect_error);
-		}
+		$this->servername = 'localhost';
+		$this->username = 'root';
+		$this->password = '';
+		$this->dbname = 'bd_notas';
+
+		$this->conexao =
+			new PDO("mysql:host=$this->servername;dbname=$this->dbname", $this->username, $this->password);
+
+		$this->conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
 
 	public function getConexao()
@@ -72,7 +77,12 @@ class clsConexao
 	/* Método que executa uma string SQL no banco de dados */
 	public function executaSQL($sql)
 	{
-		$resposta = mysqli_query($this->conexao, $sql) or die(mysqli_error($this->conexao));
-		return $resposta;
+		try {
+			$resposta = $this->conexao->query($sql);
+			return $resposta;
+		} catch (PDOException $e) {
+			echo "Erro ao executar a consulta: " . $e->getMessage();
+			return false;
+		}
 	}
 }

@@ -11,8 +11,10 @@ $usuario->setForma_pagamento($_POST['slcFormaPagamento']);
 $usuario->setStatus_pagamento($_POST['slcStatus']);
 
 
-if ($usuario->salvar() == true) {
+if ($usuario->salvar() == false) {
 	header('location:frmListaNota.php');
+	//echo "ERRO";
 } else {
-	header('location:frmListaNota.php');
+	//header('location:frmListaNota.php');
+	echo "ERRO";
 }
