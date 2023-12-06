@@ -1,6 +1,4 @@
 <?php
 
 #rotinas de inicialização
-header('location:visao/pgPrincipal.php');
-
-?>
+header('location:visao/frmListaNota.php');
