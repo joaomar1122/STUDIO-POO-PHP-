@@ -59,12 +59,12 @@ class clsControlesHTML
 
 		while ($linha = $usuarios->fetch(PDO::FETCH_ASSOC)) {
 			$htmlTabela .= '<tr>
-				<td>' . $linha['nome_cliente'] . '</td>
-				<td>' . $linha['tipo_servico'] . '</td>
-				<td>R$' . $linha['preco_nota'] . '</td>
-				<td>' . $linha['data_nota'] . '</td>
-				<td>' . $linha['forma_pagamento'] . '</td>
-				<td>'  . $linha['status_pagamento'] . '</td>';
+				<td>' .  htmlentities($linha['nome_cliente']) . '</td>
+				<td>' .  htmlentities($linha['tipo_servico']) . '</td>
+				<td>R$' . htmlentities($linha['preco_nota']) . '</td>
+				<td>' . htmlentities($linha['data_nota']) . '</td>
+				<td>' . htmlentities($linha['forma_pagamento']) . '</td>
+				<td>'   . htmlentities($linha['status_pagamento']) . '</td>';
 
 			if ($linha['status_pagamento'] == "N&atilde;o Pago") {
 				$htmlTabela .= '<td><center><a href="frmListaNota_processa.php?id=' . $linha['id_notas'] . '&action=alterar">Alterar</a></td>';
