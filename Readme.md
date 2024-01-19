@@ -4,4 +4,3 @@
 ## Com o tempo fui me aprimorando em php e com isso com o auxilio de um professor e o mestre **_Gustavo Guanabara do Curso em Video_** começei a apreender poo em php assim criei meu primeiro projeto com um projeto ja pronto do meu professor usei ele de base e criei este chamado de **_Banco poo_**
 ## Agora de ferias resolvi pegar aquele meu antigo codigo do studio fazer ele totalmente em php e orientado a objeto, o **_Studio poo_** sigo programando aos trancos e barrancos e sempre tentando apreender mais
 
-# Obrigado João Marcos ou **_linguinha_**
